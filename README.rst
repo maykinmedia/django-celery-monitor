@@ -4,8 +4,7 @@ Celery Monitoring for Django
 
 :Version: 1.1.2
 :Web: https://django-celery-monitor.readthedocs.io/
-:Download: https://pypi.python.org/pypi/django_celery_monitor
-:Source: https://github.com/jezdez/django-celery-monitor
+:Source: https://github.com/maykinmedia/django-celery-monitor
 :Keywords: django, celery, events, monitoring
 
 |build-status| |coverage| |license| |wheel| |pyversion| |pyimp|
