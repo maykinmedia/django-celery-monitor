@@ -6,11 +6,11 @@ from __future__ import absolute_import, unicode_literals
 from django.contrib import admin
 from django.contrib.admin import helpers
 from django.contrib.admin.views import main as main_views
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.html import escape
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from celery import current_app
 from celery import states
@@ -205,13 +205,13 @@ class TaskMonitor(ModelMonitor):
         context = {
             'title': _('Rate limit selection'),
             'queryset': queryset,
-            'object_name': force_text(opts.verbose_name),
+            'object_name': force_str(opts.verbose_name),
             'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
             'opts': opts,
             'app_label': app_label,
         }
 
-        return render_to_response(
+        return render(request,
             self.rate_limit_confirmation_template, context,
             context_instance=RequestContext(request),
         )
