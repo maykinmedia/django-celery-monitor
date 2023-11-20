@@ -146,8 +146,8 @@ setuptools.setup(
     classifiers=classifiers,
     install_requires=reqs('default.txt'),
     test_require=[
-        'case>=1.3.1',
-        'pytest>=3.0',
+        'case>=1.5.3',
+        'pytest>=7.4.3',
         'pytest-django',
         'pytz>dev',
     ],
