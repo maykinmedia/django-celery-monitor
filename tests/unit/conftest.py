@@ -1,4 +1,5 @@
 from __future__ import absolute_import, unicode_literals
+from celery import app as celery_app
 
 import pytest
 from celery.contrib.pytest import depends_on_current_app
