@@ -5,6 +5,8 @@ import pytest
 from celery.contrib.pytest import depends_on_current_app
 from celery.contrib.testing.app import TestApp, Trap
 
+from unittest import mock
+
 __all__ = ['app', 'depends_on_current_app']
 
 
