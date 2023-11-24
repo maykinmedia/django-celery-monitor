@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import codecs
 import os
 import re
 import sys
-import codecs
 
 import setuptools
 import setuptools.command.test
@@ -39,21 +39,17 @@ classes = """
     Development Status :: 5 - Production/Stable
     License :: OSI Approved :: BSD License
     Programming Language :: Python
-    Programming Language :: Python :: 2
-    Programming Language :: Python :: 2.7
-    Programming Language :: Python :: 3
-    Programming Language :: Python :: 3.4
-    Programming Language :: Python :: 3.5
     Programming Language :: Python :: 3.6
     Programming Language :: Python :: 3.7
+    Programming Language :: Python :: 3.8
+    Programming Language :: Python :: 3.9
+    Programming Language :: Python :: 3.10
     Programming Language :: Python :: Implementation :: CPython
     Programming Language :: Python :: Implementation :: PyPy
     Framework :: Django
-    Framework :: Django :: 1.8
-    Framework :: Django :: 1.9
-    Framework :: Django :: 1.10
-    Framework :: Django :: 1.11
-    Framework :: Django :: 2.2
+    Framework :: Django :: 3.2
+    Framework :: Django :: 4.1
+    Framework :: Django :: 4.2
     Operating System :: OS Independent
     Topic :: Communications
     Topic :: System :: Distributed Computing
@@ -150,8 +146,8 @@ setuptools.setup(
     classifiers=classifiers,
     install_requires=reqs('default.txt'),
     test_require=[
-        'case>=1.3.1',
-        'pytest>=3.0',
+        'case>=1.5.3',
+        'pytest>=7.4.3',
         'pytest-django',
         'pytz>dev',
     ],
