@@ -5,8 +5,6 @@ import pytest
 from celery.contrib.pytest import depends_on_current_app
 from celery.contrib.testing.app import TestApp, Trap
 
-from unittest import mock
-
 __all__ = ['app', 'depends_on_current_app']
 
 
@@ -22,7 +20,7 @@ def app(celery_app):
 
 
 @pytest.fixture(autouse=True)
-def test_cases_shortcuts(request, app, patching):
+def test_cases_shortcuts(request, app):
     if request.instance:
         @app.task
         def add(x, y):
@@ -32,7 +30,7 @@ def test_cases_shortcuts(request, app, patching):
         request.instance.app = app
         request.instance.Celery = TestApp
         request.instance.add = add
-        request.instance.patching = patching
+        # request.instance.patching = patching
     yield
     if request.instance:
         request.instance.app = None
