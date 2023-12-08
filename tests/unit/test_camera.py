@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.utils import timezone
 from datetime import datetime, timedelta
 from itertools import count
 from time import time
@@ -10,7 +11,6 @@ from celery.events import Event as _Event
 from celery.events.state import State, Task, Worker
 from celery.utils import gen_unique_id
 from django.test.utils import override_settings
-from django.utils import timezone
 
 from django_celery_monitor import camera, models
 from django_celery_monitor.utils import make_aware
