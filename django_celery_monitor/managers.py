@@ -31,7 +31,7 @@ class WorkerStateQuerySet(ExtendedQuerySet):
             )
             if recent_worker_updates.exists():
                 # if yes, get the latest update and move on
-                obj = recent_worker_updates.get()
+                obj = recent_worker_updates.latest()
             else:
                 # if no, update the worker state and move on
                 obj, _ = self.select_for_update_or_create(
