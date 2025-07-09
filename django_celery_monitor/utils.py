@@ -3,12 +3,12 @@
 # -- a recursive loader import!
 from __future__ import absolute_import, unicode_literals
 
-from datetime import datetime
+from datetime import datetime, timezone
 from pprint import pformat
 
 from django.conf import settings
 from django.db.models import DateTimeField, Func
-from django.utils import timezone
+from django.utils import timezone as dj_timezone
 from django.utils.html import escape
 
 try:
@@ -33,15 +33,15 @@ except ImportError:
             return self.as_sql(compiler, connection)
 
 
-def make_aware(value):
+def make_aware(value: datetime):
     """Make the given datetime aware of a timezone."""
     if settings.USE_TZ:
         # naive datetimes are assumed to be in UTC.
-        if timezone.is_naive(value):
-            value = timezone.make_aware(value, timezone.utc)
+        if value.utcoffset() is None:
+            value = dj_timezone.make_aware(value, timezone.utc)
         # then convert to the Django configured timezone.
-        default_tz = timezone.get_default_timezone()
-        value = timezone.localtime(value, default_tz)
+        default_tz = dj_timezone.get_default_timezone()
+        value = dj_timezone.localtime(value, default_tz)
     return value
 
 
@@ -50,9 +50,9 @@ def correct_awareness(value):
     if isinstance(value, datetime):
         if settings.USE_TZ:
             return make_aware(value)
-        elif timezone.is_aware(value):
-            default_tz = timezone.get_default_timezone()
-            return timezone.make_naive(value, default_tz)
+        elif dj_timezone.is_aware(value):
+            default_tz = dj_timezone.get_default_timezone()
+            return dj_timezone.make_naive(value, default_tz)
     return value
 
 

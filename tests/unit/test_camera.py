@@ -1,16 +1,19 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.utils import timezone
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from itertools import count
 from time import time
 
 import pytest
+
 from celery import states
 from celery.events import Event as _Event
 from celery.events.state import State, Task, Worker
 from celery.utils import gen_unique_id
+
 from django.test.utils import override_settings
+from django.utils import timezone as dj_timezone
+
 
 from django_celery_monitor import camera, models
 from django_celery_monitor.utils import make_aware
@@ -67,7 +70,7 @@ class test_Camera:
     def test_handle_worker(self):
         worker = Worker(hostname='fuzzie')
         worker.event('online', time(), time(), {})
-        old_last_update = timezone.now() - timedelta(hours=1)
+        old_last_update = dj_timezone.now() - timedelta(hours=1)
         models.WorkerState.objects.all().update(last_update=old_last_update)
 
         m = self.cam.handle_worker((worker.hostname, worker))
@@ -91,7 +94,7 @@ class test_Camera:
         assert mt.name == task.name
         assert str(mt)
         assert repr(mt)
-        mt.eta = timezone.now()
+        mt.eta = dj_timezone.now()
         assert 'eta' in str(mt)
         assert mt in models.TaskState.objects.active()
 
@@ -244,7 +247,7 @@ class test_Camera:
         list(map(state.event, events))
         # reset the date the last update was done
         models.WorkerState.objects.all().update(
-            last_update=timezone.now() - timedelta(hours=1)
+            last_update=dj_timezone.now() - timedelta(hours=1)
         )
         cam.on_shutter(state)
 
